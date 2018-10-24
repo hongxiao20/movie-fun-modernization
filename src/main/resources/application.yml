@@ -24,3 +24,6 @@ s3:
   accessKey: <access key id>
   secretKey: <secret access key>
   bucketName: <name of the bucket>
+
+server:
+  port: 8080
