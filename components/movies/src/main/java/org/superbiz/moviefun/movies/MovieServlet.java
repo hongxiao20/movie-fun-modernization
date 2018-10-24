@@ -14,14 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.superbiz.moviefun;
+package org.superbiz.moviefun.movies;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
-import org.superbiz.moviefun.movies.Movie;
-import org.superbiz.moviefun.movies.MoviesBean;
+import org.springframework.util.StringUtils;
 
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,18 +26,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/*import org.superbiz.moviefun.movies.Movie;
+import org.superbiz.moviefun.movies.MoviesBean;*/
+//import javax.ejb.EJB;
+
 /**
  * @version $Revision$ $Date$
  */
 @Component
-public class ActionServlet extends HttpServlet {
+public class MovieServlet extends HttpServlet {
 
     private static final long serialVersionUID = -5832176047021911038L;
 
     public static int PAGE_SIZE = 5;
 
-    @EJB
+
     private MoviesBean moviesBean;
+
+
+    public MovieServlet(MoviesBean moviesBean) {
+        this.moviesBean = moviesBean;
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,9 +69,11 @@ public class ActionServlet extends HttpServlet {
             int rating = Integer.parseInt(request.getParameter("rating"));
             int year = Integer.parseInt(request.getParameter("year"));
 
+
             Movie movie = new Movie(title, director, genre, rating, year);
 
             moviesBean.addMovie(movie);
+
             response.sendRedirect("moviefun");
             return;
 
