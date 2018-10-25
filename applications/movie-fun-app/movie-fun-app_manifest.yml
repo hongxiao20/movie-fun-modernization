@@ -1,0 +1,13 @@
+applications:
+- name: movie-fun-app
+  buildpacks:
+  - java_buildpack_offline
+  disk_quota: 1G
+  instances: 1
+  memory: 1G
+  routes:
+  - route: movie-fun-app-chatty-possum.apps.evans.pal.pivotal.io
+  services:
+  - moviefun-s3
+  - movies-database
+  stack: cflinuxfs2
